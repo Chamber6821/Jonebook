@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  postgres:
+    image: "postgres:15"
+    container_name: "jonebook-postgres"
+    environment:
+      - "POSTGRES_DB=jonebook"
+      - "POSTGRES_USER=Jonebook"
+      - "POSTGRES_PASSWORD=demo-project"
+    ports:
+      - "5433:5432"
+
+  myapp:
+    build: "."
+    container_name: "jonebook"
+    ports:
+      - "80:8080"
+
