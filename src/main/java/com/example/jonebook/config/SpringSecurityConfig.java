@@ -15,16 +15,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
+    public final static String ROLE_USER = "USER";
+    public final static String ROLE_ADMIN = "ADMIN";
+
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.withUsername("user")
                 .password(passwordEncoder().encode("user"))
-                .roles("USER")
+                .roles(ROLE_USER)
                 .build();
 
         UserDetails admin = User.withUsername("admin")
                 .password(passwordEncoder().encode("admin"))
-                .roles("USER", "ADMIN")
+                .roles(ROLE_USER, ROLE_ADMIN)
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
@@ -33,12 +36,14 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/welcome")
-                .hasRole("ADMIN")
-                .antMatchers("/")
-                .hasRole("USER")
-                .and()
-                .formLogin();
+                .antMatchers("/").permitAll()
+                .antMatchers("/complete-edition").hasRole(ROLE_USER)
+                .antMatchers("/complete-edition/edit").hasRole(ROLE_ADMIN)
+
+                .antMatchers("/**").hasRole(ROLE_ADMIN)
+
+                .and().formLogin().permitAll();
+
         return http.build();
     }
 
