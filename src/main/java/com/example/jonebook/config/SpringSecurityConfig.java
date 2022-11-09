@@ -37,8 +37,7 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/complete-edition").hasRole(ROLE_USER)
-                .antMatchers("/complete-edition/edit").hasRole(ROLE_ADMIN)
+                .antMatchers("/edit").hasRole(ROLE_ADMIN)
 
                 .antMatchers("/**").hasRole(ROLE_ADMIN)
 

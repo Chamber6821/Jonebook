@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:useBean id="employees" scope="request" type="java.util.List<com.example.jonebook.entities.Employee>"/>
-<jsp:useBean id="showInternalPhones" scope="request" type="java.lang.Boolean"/>
-<jsp:useBean id="editable" scope="request" type="java.lang.Boolean"/>
 <html>
 <head>
-    <title>Phonebook</title>
+    <title>Jonebook</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -15,20 +14,25 @@
         <a class="navbar-brand" href="#">Jonebook</a>
 
         <div>
-            <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Login</a>
+<%--            <sec:authorize access="hasRole('ADMIN')">--%>
+<%--                <a class="btn btn-primary" href="${pageContext.request.contextPath}/edit">Edit</a>--%>
+<%--            </sec:authorize>--%>
+            <sec:authorize access="not hasRole('USER')">
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Login</a>
+            </sec:authorize>
             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/logout">Logout</a>
         </div>
     </nav>
 
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered bg-light">
         <tr>
             <th>Id</th>
             <th>Full name</th>
             <th>Email</th>
             <th>Phone</th>
-            <c:if test="${showInternalPhones}">
+            <sec:authorize access="hasRole('USER')">
                 <th>Internal phone</th>
-            </c:if>
+            </sec:authorize>
             <th>Department</th>
             <th>Posts</th>
         </tr>
@@ -39,9 +43,9 @@
                 <td><c:out value="${employee.email}" default="None"/></td>
                 <td><c:out value="${employee.phone}" default="None"/></td>
 
-                <c:if test="${showInternalPhones}">
+                <sec:authorize access="hasRole('USER')">
                     <td><c:out value="${employee.internalPhone}" default="None"/></td>
-                </c:if>
+                </sec:authorize>
 
                 <td>
                     <c:choose>
