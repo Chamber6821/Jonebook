@@ -20,6 +20,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     implementation 'org.postgresql:postgresql'
+    implementation 'javax.servlet:jstl'
 
     providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
