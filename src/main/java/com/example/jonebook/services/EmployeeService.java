@@ -27,4 +27,10 @@ public class EmployeeService {
                 .map(ExtendedEmployer::new)
                 .toList();
     }
+
+    public List<ExtendedEmployer> getByIdsExtended(Iterable<Long> ids) {
+        return repository.findAllById(ids).stream()
+                .map(ExtendedEmployer::new)
+                .toList();
+    }
 }

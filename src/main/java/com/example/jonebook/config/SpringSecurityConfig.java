@@ -38,7 +38,8 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .anyRequest().permitAll()
+                .and().httpBasic()
                 .and().formLogin().permitAll();
 
         return http.build();

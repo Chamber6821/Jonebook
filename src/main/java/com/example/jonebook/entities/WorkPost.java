@@ -2,12 +2,14 @@ package com.example.jonebook.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Getter
 @Setter
+@FieldNameConstants
 @Entity
 public class WorkPost {
     @Id
