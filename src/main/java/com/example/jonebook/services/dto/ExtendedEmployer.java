@@ -2,13 +2,15 @@ package com.example.jonebook.services.dto;
 
 import com.example.jonebook.entities.Employee;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ExtendedEmployer extends PublicEmployee {
 
-    private final String internalPhone;
+    private String internalPhone;
 
     public ExtendedEmployer(Employee employee) {
         super(employee);

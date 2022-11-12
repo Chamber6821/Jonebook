@@ -4,12 +4,14 @@ package com.example.jonebook.services.dto;
 import com.example.jonebook.entities.WorkPost;
 import com.example.jonebook.entities.partial.EmployeeNoInternalPhone;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PublicEmployee {
     private Long id;
     private String name;
