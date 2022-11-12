@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<jsp:useBean id="employees" scope="request" type="java.util.List<com.example.jonebook.entities.Employee>"/>
+<jsp:useBean id="employees" scope="request" type="java.util.List<com.example.jonebook.services.dto.ExtendedEmployer>"/>
 <html>
 <head>
     <title>Jonebook</title>
@@ -53,7 +53,7 @@
                             None
                         </c:when>
                         <c:otherwise>
-                            <c:out value="${employee.department.name}"/>
+                            <c:out value="${employee.department}"/>
                         </c:otherwise>
                     </c:choose>
                 </td>
@@ -65,7 +65,7 @@
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="post" items="${employee.posts}">
-                                <c:out value="${post.name} "/>
+                                <c:out value="${post} "/>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
