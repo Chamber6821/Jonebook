@@ -3,7 +3,7 @@ package com.example.jonebook.api.v1;
 import com.example.jonebook.services.EmployeeSearchService;
 import com.example.jonebook.services.EmployeeService;
 import com.example.jonebook.services.dto.EmployeeCriteria;
-import com.example.jonebook.services.dto.ExtendedEmployer;
+import com.example.jonebook.services.dto.ExtendedEmployee;
 import com.example.jonebook.services.dto.PublicEmployee;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class EmployeeController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{ids}")
-    public List<ExtendedEmployer> getByIds(@PathVariable List<Long> ids) {
+    public List<ExtendedEmployee> getByIds(@PathVariable List<Long> ids) {
         return employees.getByIdsExtended(ids);
     }
 
@@ -50,19 +50,19 @@ public class EmployeeController {
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Long create(@RequestBody ExtendedEmployer data) {
+    public Long create(@RequestBody ExtendedEmployee data) {
         return employees.add(data);
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/extended")
-    public List<ExtendedEmployer> getAllExtended() {
+    public List<ExtendedEmployee> getAllExtended() {
         return employees.getAllExtended();
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/search")
-    public List<ExtendedEmployer> search(@RequestBody EmployeeCriteria criteria) {
+    public List<ExtendedEmployee> search(@RequestBody EmployeeCriteria criteria) {
         return searchService.search(criteria);
     }
 }

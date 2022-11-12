@@ -2,7 +2,7 @@ package com.example.jonebook.services;
 
 import com.example.jonebook.entities.Employee;
 import com.example.jonebook.repositories.EmployeeRepository;
-import com.example.jonebook.services.dto.ExtendedEmployer;
+import com.example.jonebook.services.dto.ExtendedEmployee;
 import com.example.jonebook.services.dto.PublicEmployee;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +25,15 @@ public class EmployeeService {
                 .toList();
     }
 
-    public List<ExtendedEmployer> getAllExtended() {
+    public List<ExtendedEmployee> getAllExtended() {
         return repository.getTop100ByOrderById().stream()
-                .map(ExtendedEmployer::new)
+                .map(ExtendedEmployee::new)
                 .toList();
     }
 
-    public List<ExtendedEmployer> getByIdsExtended(Iterable<Long> ids) {
+    public List<ExtendedEmployee> getByIdsExtended(Iterable<Long> ids) {
         return repository.findAllById(ids).stream()
-                .map(ExtendedEmployer::new)
+                .map(ExtendedEmployee::new)
                 .toList();
     }
 
@@ -41,7 +41,7 @@ public class EmployeeService {
         repository.deleteAllById(ids);
     }
 
-    public Long add(ExtendedEmployer data) {
+    public Long add(ExtendedEmployee data) {
         Employee entity = builder.createFromData(data);
         entity = repository.save(entity);
         return entity.getId();

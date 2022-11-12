@@ -3,7 +3,7 @@ package com.example.jonebook.services;
 import com.example.jonebook.entities.Employee;
 import com.example.jonebook.repositories.DepartmentRepository;
 import com.example.jonebook.repositories.WorkPostRepository;
-import com.example.jonebook.services.dto.ExtendedEmployer;
+import com.example.jonebook.services.dto.ExtendedEmployee;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class EmployeeBuilderService {
         this.workPosts = workPosts;
     }
 
-    public Employee createFromData(ExtendedEmployer data) {
+    public Employee createFromData(ExtendedEmployee data) {
         return Employee.builder()
                 .name(data.getName())
                 .phone(data.getPhone())

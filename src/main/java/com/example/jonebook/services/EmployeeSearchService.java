@@ -5,7 +5,7 @@ import com.example.jonebook.entities.Employee;
 import com.example.jonebook.entities.WorkPost;
 import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.services.dto.EmployeeCriteria;
-import com.example.jonebook.services.dto.ExtendedEmployer;
+import com.example.jonebook.services.dto.ExtendedEmployee;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,9 @@ public class EmployeeSearchService {
         this.repository = repository;
     }
 
-    public List<ExtendedEmployer> search(EmployeeCriteria criteria) {
+    public List<ExtendedEmployee> search(EmployeeCriteria criteria) {
         return repository.findAll(getSpecification(criteria)).stream()
-                .map(ExtendedEmployer::new)
+                .map(ExtendedEmployee::new)
                 .toList();
     }
 

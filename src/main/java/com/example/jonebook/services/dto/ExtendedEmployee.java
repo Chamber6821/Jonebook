@@ -8,11 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExtendedEmployer extends PublicEmployee {
+public class ExtendedEmployee extends PublicEmployee {
 
     private String internalPhone;
 
-    public ExtendedEmployer(Employee employee) {
+    public ExtendedEmployee(Employee employee) {
         super(employee);
         internalPhone = employee.getInternalPhone();
     }
