@@ -5,8 +5,11 @@ import com.example.jonebook.services.EmployeeService;
 import com.example.jonebook.services.dto.EmployeeCriteria;
 import com.example.jonebook.services.dto.ExtendedEmployer;
 import com.example.jonebook.services.dto.PublicEmployee;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -32,6 +35,16 @@ public class EmployeeController {
     @GetMapping("/{ids}")
     public List<ExtendedEmployer> getByIds(@PathVariable List<Long> ids) {
         return employees.getByIdsExtended(ids);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{ids}")
+    public void deleteByIds(@PathVariable List<Long> ids) {
+        try {
+            employees.removeByIds(ids);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PreAuthorize("hasRole('USER')")

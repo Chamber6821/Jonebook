@@ -33,4 +33,8 @@ public class EmployeeService {
                 .map(ExtendedEmployer::new)
                 .toList();
     }
+
+    public void removeByIds(Iterable<Long> ids) {
+        repository.deleteAllById(ids);
+    }
 }
