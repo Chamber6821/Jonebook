@@ -1,5 +1,6 @@
 package com.example.jonebook.entities;
 
+import com.example.jonebook.entities.partial.EmployeeNoInternalPhone;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Employee {
+public class Employee implements EmployeeNoInternalPhone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
