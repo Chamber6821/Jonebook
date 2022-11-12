@@ -1,5 +1,6 @@
 package com.example.jonebook.services;
 
+import com.example.jonebook.entities.Employee;
 import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.services.dto.ExtendedEmployer;
 import com.example.jonebook.services.dto.PublicEmployee;
@@ -11,9 +12,11 @@ import java.util.List;
 public class EmployeeService {
 
     private final EmployeeRepository repository;
+    private final EmployeeBuilderService builder;
 
-    public EmployeeService(EmployeeRepository repository) {
+    public EmployeeService(EmployeeRepository repository, EmployeeBuilderService builder) {
         this.repository = repository;
+        this.builder = builder;
     }
 
     public List<PublicEmployee> getAllPublic() {
@@ -36,5 +39,11 @@ public class EmployeeService {
 
     public void removeByIds(Iterable<Long> ids) {
         repository.deleteAllById(ids);
+    }
+
+    public Long add(ExtendedEmployer data) {
+        Employee entity = builder.createFromData(data);
+        entity = repository.save(entity);
+        return entity.getId();
     }
 }

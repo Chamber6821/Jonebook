@@ -47,6 +47,13 @@ public class EmployeeController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Long create(@RequestBody ExtendedEmployer data) {
+        return employees.add(data);
+    }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/extended")
     public List<ExtendedEmployer> getAllExtended() {
