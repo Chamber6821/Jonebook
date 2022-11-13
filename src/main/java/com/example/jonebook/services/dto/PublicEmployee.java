@@ -1,8 +1,8 @@
 package com.example.jonebook.services.dto;
 
 
+import com.example.jonebook.entities.Employee;
 import com.example.jonebook.entities.WorkPost;
-import com.example.jonebook.entities.partial.EmployeeNoInternalPhone;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class PublicEmployee {
     private String department;
     private List<String> posts;
 
-    public PublicEmployee(EmployeeNoInternalPhone employee) {
+    public PublicEmployee(Employee employee) {
         id = employee.getId();
         name = employee.getName();
         email = employee.getEmail();

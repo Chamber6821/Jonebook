@@ -1,6 +1,5 @@
 package com.example.jonebook.entities;
 
-import com.example.jonebook.entities.partial.EmployeeNoInternalPhone;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
@@ -14,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldNameConstants
 @Entity
-public class Employee implements EmployeeNoInternalPhone {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
