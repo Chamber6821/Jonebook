@@ -44,6 +44,11 @@ public class EmployeeSearchService {
                     builder.lower(root.get(Employee.Fields.name)),
                     contains(criteria.getNameFragment()).toLowerCase()));
 
+        if (criteria.getEmailFragment() != null)
+            filters.add(builder.like(
+                    builder.lower(root.get(Employee.Fields.email)),
+                    contains(criteria.getEmailFragment()).toLowerCase()));
+
         if (criteria.getPhonePrefix() != null)
             filters.add(builder.like(root.get(Employee.Fields.phone), startWith(criteria.getPhonePrefix())));
 

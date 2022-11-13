@@ -9,6 +9,7 @@ import java.util.Set;
 @Getter
 public class EmployeeCriteria {
     private String nameFragment;
+    private String emailFragment;
     private String phonePrefix;
     private String internalPhonePrefix;
     private Set<String> departmentVariants;
