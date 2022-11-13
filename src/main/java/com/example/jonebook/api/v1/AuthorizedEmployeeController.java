@@ -20,6 +20,7 @@ public class AuthorizedEmployeeController {
 
     private final EmployeeRepository employees;
     private final EmployeeSearchService searchService;
+
     public AuthorizedEmployeeController(EmployeeRepository employees, EmployeeSearchService searchService) {
         this.employees = employees;
         this.searchService = searchService;
@@ -27,7 +28,7 @@ public class AuthorizedEmployeeController {
 
     @GetMapping
     public List<ExtendedEmployee> getAll(@RequestParam(defaultValue = "100") int pageSize,
-                                         @RequestParam(defaultValue = "1") int page) {
+                                         @RequestParam(defaultValue = "0") int page) {
         Pageable pageable = Pageable.ofSize(pageSize).withPage(page);
         return toExtendedList(employees.findAll(pageable));
     }
@@ -38,9 +39,9 @@ public class AuthorizedEmployeeController {
     }
 
     @GetMapping("/search")
-    public List<ExtendedEmployee> search(@RequestParam EmployeeCriteria criteria,
-                                         @RequestParam(defaultValue = "100") int pageSize,
-                                         @RequestParam(defaultValue = "1") int page) {
+    public List<ExtendedEmployee> search(@RequestParam(defaultValue = "100") int pageSize,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         EmployeeCriteria criteria) {
         Pageable pageable = Pageable.ofSize(pageSize).withPage(page);
         return toExtendedList(searchService.search(criteria, pageable));
     }
