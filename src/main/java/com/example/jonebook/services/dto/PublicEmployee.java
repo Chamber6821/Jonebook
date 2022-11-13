@@ -1,6 +1,7 @@
 package com.example.jonebook.services.dto;
 
 
+import com.example.jonebook.entities.Department;
 import com.example.jonebook.entities.Employee;
 import com.example.jonebook.entities.WorkPost;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ public class PublicEmployee {
         name = employee.getName();
         email = employee.getEmail();
         phone = employee.getPhone();
-        department = employee.getDepartment().getName();
+        department = Optional.ofNullable(employee.getDepartment()).map(Department::getName).orElse(null);
         posts = employee.getPosts().stream().map(WorkPost::getName).toList();
     }
 }
