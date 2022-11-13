@@ -16,13 +16,6 @@ function fillTable(employees) {
     }
 }
 
-function fillSelect(container, elements) {
-    for (let element of elements) {
-        container.append($('<option>').text(element))
-    }
-    container.selectpicker()
-}
-
 function collectSearchParams() {
     const departments = []
     $.each($('#departments :selected'), function () {

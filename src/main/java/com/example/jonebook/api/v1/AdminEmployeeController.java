@@ -1,6 +1,11 @@
 package com.example.jonebook.api.v1;
 
+import com.example.jonebook.entities.Department;
+import com.example.jonebook.entities.Employee;
+import com.example.jonebook.entities.WorkPost;
+import com.example.jonebook.repositories.DepartmentRepository;
 import com.example.jonebook.repositories.EmployeeRepository;
+import com.example.jonebook.repositories.WorkPostRepository;
 import com.example.jonebook.services.EmployeeBuilderService;
 import com.example.jonebook.services.dto.ExtendedEmployee;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,10 +22,14 @@ import java.util.List;
 public class AdminEmployeeController {
 
     private final EmployeeRepository employees;
+    private final DepartmentRepository departments;
+    private final WorkPostRepository workPosts;
     private final EmployeeBuilderService builder;
 
-    public AdminEmployeeController(EmployeeRepository employees, EmployeeBuilderService builder) {
+    public AdminEmployeeController(EmployeeRepository employees, DepartmentRepository departments, WorkPostRepository workPosts, EmployeeBuilderService builder) {
         this.employees = employees;
+        this.departments = departments;
+        this.workPosts = workPosts;
         this.builder = builder;
     }
 
@@ -28,6 +37,28 @@ public class AdminEmployeeController {
     @PostMapping
     public Long create(@RequestBody ExtendedEmployee data) {
         return employees.save(builder.createFromData(data)).getId();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{id}")
+    public void update(@RequestParam Long id, @RequestBody ExtendedEmployee data) {
+        Employee once = employees.findById(id).orElse(null);
+        if (once == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        if (data.getName() != null) once.setName(data.getName());
+        if (data.getEmail() != null) once.setEmail(data.getEmail());
+        if (data.getPhone() != null) once.setName(data.getPhone());
+        if (data.getInternalPhone() != null) once.setName(data.getInternalPhone());
+
+        if (data.getDepartment() != null) {
+            departments.findByName(data.getDepartment()).ifPresent(once::setDepartment);
+        }
+
+        if (data.getPosts() != null) {
+            for (String post : data.getPosts()) {
+                workPosts.findByName(post).ifPresent(workPost -> once.getPosts().add(workPost));
+            }
+        }
     }
 
     @DeleteMapping("/{ids}")

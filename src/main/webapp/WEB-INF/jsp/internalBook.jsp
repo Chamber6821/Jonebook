@@ -79,7 +79,7 @@
 
         <div>
             <sec:authorize access="hasRole('ADMIN')">
-                <a class="btn btn-primary" href="$/edit">Edit</a>
+                <a class="btn btn-primary" href="/edit">Edit</a>
             </sec:authorize>
             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/logout">Logout</a>
         </div>

@@ -29,3 +29,10 @@ function compressName(name, maxLen = 10) {
     if (acr.length > 1) return acr
     return name
 }
+
+function fillSelect(container, elements) {
+    for (let element of elements) {
+        container.append($('<option>').text(element))
+    }
+    container.selectpicker()
+}

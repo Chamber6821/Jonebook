@@ -12,4 +12,10 @@ public class PhonebookController {
     public String getPublic() {
         return "book.jsp";
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/edit")
+    public String edit() {
+        return "edit.jsp";
+    }
 }
