@@ -1,43 +1,51 @@
 package com.example.jonebook.api.v1;
 
 
+import com.example.jonebook.entities.Employee;
+import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.services.EmployeeSearchService;
-import com.example.jonebook.services.EmployeeService;
 import com.example.jonebook.services.dto.EmployeeCriteria;
 import com.example.jonebook.services.dto.ExtendedEmployee;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @RestController
 @PreAuthorize("hasRole('USER')")
 @RequestMapping("/api/v1/extended-employee")
 public class AuthorizedEmployeeController {
 
-    private final EmployeeService employees;
+    private final EmployeeRepository employees;
     private final EmployeeSearchService searchService;
-
-    public AuthorizedEmployeeController(EmployeeService employees, EmployeeSearchService searchService) {
+    public AuthorizedEmployeeController(EmployeeRepository employees, EmployeeSearchService searchService) {
         this.employees = employees;
         this.searchService = searchService;
     }
 
     @GetMapping
-    public List<ExtendedEmployee> getAllExtended() {
-        return employees.getAllExtended();
+    public List<ExtendedEmployee> getAll(@RequestParam(defaultValue = "100") int pageSize,
+                                         @RequestParam(defaultValue = "1") int page) {
+        Pageable pageable = Pageable.ofSize(pageSize).withPage(page);
+        return toExtendedList(employees.findAll(pageable));
     }
 
     @GetMapping("/{ids}")
     public List<ExtendedEmployee> getByIds(@PathVariable List<Long> ids) {
-        return employees.getByIdsExtended(ids);
+        return toExtendedList(employees.findAllById(ids));
     }
 
     @GetMapping("/search")
-    public List<ExtendedEmployee> search(@RequestBody EmployeeCriteria criteria) {
-        return searchService.search(criteria);
+    public List<ExtendedEmployee> search(@RequestParam EmployeeCriteria criteria,
+                                         @RequestParam(defaultValue = "100") int pageSize,
+                                         @RequestParam(defaultValue = "1") int page) {
+        Pageable pageable = Pageable.ofSize(pageSize).withPage(page);
+        return toExtendedList(searchService.search(criteria, pageable));
+    }
+
+    private List<ExtendedEmployee> toExtendedList(Iterable<Employee> employees) {
+        return StreamSupport.stream(employees.spliterator(), false).map(ExtendedEmployee::new).toList();
     }
 }

@@ -5,7 +5,8 @@ import com.example.jonebook.entities.Employee;
 import com.example.jonebook.entities.WorkPost;
 import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.services.dto.EmployeeCriteria;
-import com.example.jonebook.services.dto.ExtendedEmployee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -26,10 +26,8 @@ public class EmployeeSearchService {
         this.repository = repository;
     }
 
-    public List<ExtendedEmployee> search(EmployeeCriteria criteria) {
-        return repository.findAll(getSpecification(criteria)).stream()
-                .map(ExtendedEmployee::new)
-                .toList();
+    public Page<Employee> search(EmployeeCriteria criteria, Pageable pageable) {
+        return repository.findAll(getSpecification(criteria), pageable);
     }
 
     private Specification<Employee> getSpecification(EmployeeCriteria criteria) {

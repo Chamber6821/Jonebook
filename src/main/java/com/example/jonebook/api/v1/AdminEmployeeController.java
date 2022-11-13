@@ -1,6 +1,7 @@
 package com.example.jonebook.api.v1;
 
-import com.example.jonebook.services.EmployeeService;
+import com.example.jonebook.repositories.EmployeeRepository;
+import com.example.jonebook.services.EmployeeBuilderService;
 import com.example.jonebook.services.dto.ExtendedEmployee;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -15,22 +16,24 @@ import java.util.List;
 @RequestMapping("/api/v1/extended-employee")
 public class AdminEmployeeController {
 
-    private final EmployeeService employees;
+    private final EmployeeRepository employees;
+    private final EmployeeBuilderService builder;
 
-    public AdminEmployeeController(EmployeeService employees) {
+    public AdminEmployeeController(EmployeeRepository employees, EmployeeBuilderService builder) {
         this.employees = employees;
+        this.builder = builder;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Long create(@RequestBody ExtendedEmployee data) {
-        return employees.add(data);
+        return employees.save(builder.createFromData(data)).getId();
     }
 
     @DeleteMapping("/{ids}")
     public void deleteByIds(@PathVariable List<Long> ids) {
         try {
-            employees.removeByIds(ids);
+            employees.deleteAllById(ids);
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
