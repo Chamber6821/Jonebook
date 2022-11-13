@@ -9,11 +9,63 @@ function renderExtendedEmployee(employee) {
         .append($('<td>').text(employee.posts.map(compressName).join(', ')))
 }
 
+function fillTable(employees) {
+    const body = $('#employees tbody')
+    for (let employee of employees) {
+        body.append(renderExtendedEmployee(employee))
+    }
+}
+
+function fillSelect(container, elements) {
+    for (let element of elements) {
+        container.append($('<option>').text(element))
+    }
+    container.selectpicker()
+}
+
+function collectSearchParams() {
+    const departments = []
+    $.each($('#departments :selected'), function () {
+        departments.push($(this).val())
+    })
+
+    const posts = []
+    $.each($('#posts :selected'), function () {
+        posts.push($(this).val())
+    })
+
+    return {
+        nameFragment: $('#nameFragment').val(),
+        emailFragment: $('#emailFragment').val(),
+        phonePrefix: $('#phonePrefix').val(),
+        internalPhonePrefix: $('#internalPhonePrefix').val(),
+        departmentVariants: departments,
+        postsFragment: posts,
+    }
+}
+
+function deleteAllFalsy(obj) {
+    Object.keys(obj).forEach(key => {
+        if (!obj[key]) {
+            delete obj[key];
+        }
+    });
+    return obj
+}
+
 $(document).ready(function () {
     initPageControls(getPage())
-    $.get('/api/v1/extended-employee', {page: getPage()}, function (employees) {
-        for (let employee of employees) {
-            $('#employees').append(renderExtendedEmployee(employee))
-        }
+
+    $.get('/api/v1/extended-employee/search' + window.location.search, {page: getPage()}, fillTable)
+
+    $.get('/api/v1/department/search', {name: ''}, x => fillSelect($('#departments'), x))
+
+    $.get('/api/v1/work-post/search', {name: ''}, x => fillSelect($('#posts'), x))
+
+    $('#search-form').on('submit', function () {
+        $('#employees tbody tr').remove()
+        const query = $.param(deleteAllFalsy(collectSearchParams()), true)
+        window.location.href = "/?" + query
+        return false
     })
 })

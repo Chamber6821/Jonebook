@@ -6,12 +6,17 @@ function getPage() {
 function initPageControls(page) {
     if (!page)
         $('#previous-button').addClass('disabled')
-    else
-        $('#previous-button').children().attr('href', `?page=${page - 1}`)
+    else {
+        const prevUrl = new URL(window.location.href)
+        prevUrl.searchParams.set('page', `${page - 1}`)
+        $('#previous-button').children().attr('href', prevUrl.toString())
+    }
 
     $('#current-page').children().append(page)
 
-    $('#next-button').children().attr('href', `?page=${page + 1}`)
+    const nextUrl = new URL(window.location.href)
+    nextUrl.searchParams.set('page', `${page + 1}`)
+    $('#next-button').children().attr('href', nextUrl.toString())
 }
 
 function acronym(str) {
