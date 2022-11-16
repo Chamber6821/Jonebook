@@ -1,8 +1,6 @@
 package com.example.jonebook.api.v1;
 
-import com.example.jonebook.entities.Department;
 import com.example.jonebook.entities.Employee;
-import com.example.jonebook.entities.WorkPost;
 import com.example.jonebook.repositories.DepartmentRepository;
 import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.repositories.WorkPostRepository;
@@ -40,15 +38,15 @@ public class AdminEmployeeController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/{id}")
-    public void update(@RequestParam Long id, @RequestBody ExtendedEmployee data) {
+    @PatchMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody ExtendedEmployee data) {
         Employee once = employees.findById(id).orElse(null);
         if (once == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         if (data.getName() != null) once.setName(data.getName());
         if (data.getEmail() != null) once.setEmail(data.getEmail());
-        if (data.getPhone() != null) once.setName(data.getPhone());
-        if (data.getInternalPhone() != null) once.setName(data.getInternalPhone());
+        if (data.getPhone() != null) once.setPhone(data.getPhone());
+        if (data.getInternalPhone() != null) once.setInternalPhone(data.getInternalPhone());
 
         if (data.getDepartment() != null) {
             departments.findByName(data.getDepartment()).ifPresent(once::setDepartment);
@@ -59,6 +57,8 @@ public class AdminEmployeeController {
                 workPosts.findByName(post).ifPresent(workPost -> once.getPosts().add(workPost));
             }
         }
+
+        employees.save(once);
     }
 
     @DeleteMapping("/{ids}")
