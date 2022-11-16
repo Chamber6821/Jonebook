@@ -37,15 +37,6 @@ function collectSearchParams() {
     }
 }
 
-function deleteAllFalsy(obj) {
-    Object.keys(obj).forEach(key => {
-        if (!obj[key]) {
-            delete obj[key];
-        }
-    });
-    return obj
-}
-
 $(document).ready(function () {
     initPageControls(getPage())
 

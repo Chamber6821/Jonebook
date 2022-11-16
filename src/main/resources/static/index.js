@@ -36,3 +36,30 @@ function fillSelect(container, elements) {
     }
     container.selectpicker()
 }
+
+function deleteAllFalsy(obj) {
+    Object.keys(obj).forEach(key => {
+        if (!obj[key]) {
+            delete obj[key];
+        }
+    });
+    return obj
+}
+
+function selectOptions(root, options) {
+    $(root).children('option').each(function () {
+        if (options.includes($(this).val())) {
+            $(this).attr('selected', 'selected')
+        } else {
+            $(this).removeAttr('selected')
+        }
+    }).change()
+}
+
+function getOptions(root) {
+    const options = []
+    $(root).children(':selected').each(function () {
+        options.push($(this).val())
+    })
+    return options
+}
