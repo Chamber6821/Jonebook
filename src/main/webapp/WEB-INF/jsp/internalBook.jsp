@@ -23,10 +23,20 @@
     <script src="internal.js"></script>
 </head>
 <body>
+<sec:authorize access="hasRole('ADMIN')">
+    <%@ include file="editPopup.jsp" %>
+</sec:authorize>
 <div class="card" style="position: fixed; bottom: 0; right: 0">
     <div class="card-body">
-        <h5 class="card-title">Search</h5>
-        <form id="search-form">
+        <h5 class="card-title"
+            data-target="#search-form"
+            data-toggle="collapse"
+            aria-expanded="false"
+            aria-controls="search-form">
+            Search
+            <%@ include file="searchIcon.jsp" %>
+        </h5>
+        <form id="search-form" class="collapse">
             <input id="nameFragment" class="form-group form-control" type="search" placeholder="Enter name fragment">
             <input id="emailFragment" class="form-group form-control" type="search" placeholder="Enter email fragment">
             <input id="phonePrefix" class="form-group form-control" type="search" placeholder="Enter phone starts">
@@ -80,7 +90,13 @@
 
         <div>
             <sec:authorize access="hasRole('ADMIN')">
-                <a class="btn btn-primary" href="/edit">Edit</a>
+                <button id="add-new"
+                        class="btn btn-primary"
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#edit-modal">
+                    Add new
+                </button>
             </sec:authorize>
             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/logout">Logout</a>
         </div>

@@ -12,7 +12,13 @@ function renderExtendedEmployee(employee) {
 function fillTable(employees) {
     const body = $('#employees tbody')
     for (let employee of employees) {
-        body.append(renderExtendedEmployee(employee))
+        const row = renderExtendedEmployee(employee)
+        if (editExists) {
+            row.on('click', function () {
+                editExists(employee.id)
+            })
+        }
+        body.append(row)
     }
 }
 
