@@ -103,6 +103,7 @@
     </nav>
 
     <table id="employees" class="table table-hover table-bordered bg-light">
+        <caption>The table with employees names, phones and work posts</caption>
         <thead>
         <tr>
             <th>Id</th>
