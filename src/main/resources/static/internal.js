@@ -13,7 +13,8 @@ function fillTable(employees) {
     const body = $('#employees tbody')
     for (let employee of employees) {
         const row = renderExtendedEmployee(employee)
-        if (editExists) {
+        if (typeof editExists == 'function') {
+            console.log('Subscribe to row on click')
             row.on('click', function () {
                 editExists(employee.id)
             })
