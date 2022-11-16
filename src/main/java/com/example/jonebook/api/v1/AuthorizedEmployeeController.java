@@ -6,7 +6,9 @@ import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.services.EmployeeSearchService;
 import com.example.jonebook.services.dto.EmployeeCriteria;
 import com.example.jonebook.services.dto.ExtendedEmployee;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +44,7 @@ public class AuthorizedEmployeeController {
     public List<ExtendedEmployee> search(@RequestParam(defaultValue = "100") int pageSize,
                                          @RequestParam(defaultValue = "0") int page,
                                          EmployeeCriteria criteria) {
-        Pageable pageable = Pageable.ofSize(pageSize).withPage(page);
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, Employee.Fields.id);
         return toExtendedList(searchService.search(criteria, pageable));
     }
 
