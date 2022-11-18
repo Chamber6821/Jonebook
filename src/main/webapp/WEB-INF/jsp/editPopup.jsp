@@ -40,7 +40,10 @@
             </div>
             <div class="modal-footer">
                 <button id="edit-create" type="button" class="btn btn-primary">Create</button>
-                <button id="edit-save-changes" type="button" class="btn btn-primary">Save changes</button>
+                <div id="edit-button-group">
+                    <button id="edit-save-changes" type="button" class="btn btn-primary">Save changes</button>
+                    <button id="edit-delete" type="button" class="btn btn-danger">Delete</button>
+                </div>
             </div>
         </div>
     </div>

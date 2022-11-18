@@ -29,12 +29,12 @@ function setHeader(name, id = undefined) {
 }
 
 function editMode() {
-    $('#edit-save-changes').show()
+    $('#edit-button-group').show()
     $('#edit-create').hide()
 }
 
 function createMode() {
-    $('#edit-save-changes').hide()
+    $('#edit-button-group').hide()
     $('#edit-create').show()
 }
 
@@ -79,6 +79,16 @@ $(document).ready(function () {
                 url: '/api/v1/extended-employee',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(getPopupFields())
+            }).done(function () {
+                window.location.reload()
+            })
+        })
+
+        $('#edit-delete').on('click', function () {
+            $('#edit-modal').modal('hide')
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/v1/extended-employee/' + selectedId,
             }).done(function () {
                 window.location.reload()
             })
