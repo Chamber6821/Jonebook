@@ -43,7 +43,6 @@
 
         <div>
             <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Login</a>
-            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/logout">Logout</a>
         </div>
     </nav>
 
