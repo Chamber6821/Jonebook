@@ -17,19 +17,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig {
 
-    public final static String ROLE_USER = "USER";
-    public final static String ROLE_ADMIN = "ADMIN";
-
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.withUsername("user")
                 .password(passwordEncoder().encode("user"))
-                .roles(ROLE_USER)
+                .roles("USER")
                 .build();
 
         UserDetails admin = User.withUsername("admin")
                 .password(passwordEncoder().encode("admin"))
-                .roles(ROLE_USER, ROLE_ADMIN)
+                .roles("USER", "ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
