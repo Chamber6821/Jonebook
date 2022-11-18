@@ -16,8 +16,6 @@ import java.util.List;
 @RequestMapping("/api/v1/employee")
 public class PublicEmployeeController {
 
-    public final int PUBLIC_PAGE_SIZE = 100;
-
     private final EmployeeRepository employees;
 
     public PublicEmployeeController(EmployeeRepository employees) {
@@ -27,7 +25,7 @@ public class PublicEmployeeController {
     @GetMapping
     public List<PublicEmployee> getAll(@RequestParam(defaultValue = "100") int pageSize,
                                        @RequestParam(defaultValue = "1") int page) {
-        Pageable pageable = Pageable.ofSize(Math.min(pageSize, PUBLIC_PAGE_SIZE)).withPage(page);
+        Pageable pageable = Pageable.ofSize(Math.min(pageSize, 100)).withPage(page);
         return employees.findAll(pageable).stream()
                 .map(PublicEmployee::new)
                 .toList();
