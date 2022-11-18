@@ -46,17 +46,19 @@
         </div>
     </nav>
 
-    <table id="employees" class="table table-hover table-bordered bg-light">
-        <caption>The table with employees names, phones and work posts</caption>
-        <tr>
-            <th>Id</th>
-            <th>Full name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Department</th>
-            <th>Posts</th>
-        </tr>
-    </table>
+    <div class="table-responsive">
+        <table id="employees" class="table table-hover table-bordered bg-light text-nowrap">
+            <caption>The table with employees names, phones and work posts</caption>
+            <tr>
+                <th>Id</th>
+                <th>Full name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Posts</th>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

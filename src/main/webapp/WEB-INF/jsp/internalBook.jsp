@@ -101,22 +101,23 @@
             <a class="btn btn-secondary" href="${pageContext.request.contextPath}/logout">Logout</a>
         </div>
     </nav>
-
-    <table id="employees" class="table table-hover table-bordered bg-light">
-        <caption>The table with employees names, phones and work posts</caption>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Full name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Internal phone</th>
-            <th>Department</th>
-            <th>Posts</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="table-responsive">
+        <table id="employees" class="table table-hover table-bordered bg-light text-nowrap">
+            <caption>The table with employees names, phones and work posts</caption>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Full name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Internal phone</th>
+                <th>Department</th>
+                <th>Posts</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
