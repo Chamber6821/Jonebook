@@ -35,8 +35,6 @@ public class EmployeeSearchService {
     }
 
     private Predicate buildPredicate(Root<Employee> root, CriteriaBuilder builder, EmployeeCriteria criteria) {
-        //TODO setup Hibernate Search with Elasticsearch (guid: https://reflectoring.io/hibernate-search/)
-
         ArrayList<Predicate> filters = new ArrayList<>();
 
         if (criteria.getNameFragment() != null)
