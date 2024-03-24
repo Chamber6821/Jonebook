@@ -4,8 +4,7 @@ function getPage() {
 }
 
 function initPageControls(page) {
-    if (!page)
-        $('#previous-button').addClass('disabled')
+    if (!page) $('#previous-button').addClass('disabled')
     else {
         const prevUrl = new URL(window.location.href)
         prevUrl.searchParams.set('page', `${page - 1}`)
@@ -20,12 +19,13 @@ function initPageControls(page) {
 }
 
 function acronym(str) {
-    return str.match(/\b(\w)/g).join('');
+    return str.match(/\b(\w)/g).join('')
 }
 
 function compressName(name, maxLen = 10) {
+    if (name === null) return null
     if (name.length <= maxLen) return name
-    const acr = acronym(name);
+    const acr = acronym(name)
     if (acr.length > 1) return acr
     return name
 }
@@ -38,28 +38,33 @@ function fillSelect(container, elements) {
 }
 
 function deleteAllFalsy(obj) {
-    Object.keys(obj).forEach(key => {
+    Object.keys(obj).forEach((key) => {
         if (!obj[key]) {
-            delete obj[key];
+            delete obj[key]
         }
-    });
+    })
     return obj
 }
 
 function selectOptions(root, options) {
-    $(root).children('option').each(function () {
-        if (options.includes($(this).val())) {
-            $(this).attr('selected', 'selected')
-        } else {
-            $(this).removeAttr('selected')
-        }
-    }).change()
+    $(root)
+        .children('option')
+        .each(function () {
+            if (options.includes($(this).val())) {
+                $(this).attr('selected', 'selected')
+            } else {
+                $(this).removeAttr('selected')
+            }
+        })
+        .change()
 }
 
 function getOptions(root) {
     const options = []
-    $(root).children(':selected').each(function () {
-        options.push($(this).val())
-    })
+    $(root)
+        .children(':selected')
+        .each(function () {
+            options.push($(this).val())
+        })
     return options
 }
