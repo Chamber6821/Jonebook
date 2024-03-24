@@ -26,7 +26,8 @@ public class AdminEmployeeController {
     private final WorkPostRepository workPosts;
     private final EmployeeBuilderService builder;
 
-    public AdminEmployeeController(EmployeeRepository employees, DepartmentRepository departments, WorkPostRepository workPosts, EmployeeBuilderService builder) {
+    public AdminEmployeeController(EmployeeRepository employees, DepartmentRepository departments,
+            WorkPostRepository workPosts, EmployeeBuilderService builder) {
         this.employees = employees;
         this.departments = departments;
         this.workPosts = workPosts;
@@ -43,12 +44,17 @@ public class AdminEmployeeController {
     @PatchMapping("/{id}")
     public void update(@PathVariable Long id, @RequestBody ExtendedEmployee data) {
         Employee once = employees.findById(id).orElse(null);
-        if (once == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (once == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        if (data.getName() != null) once.setName(data.getName());
-        if (data.getEmail() != null) once.setEmail(data.getEmail());
-        if (data.getPhone() != null) once.setPhone(data.getPhone());
-        if (data.getInternalPhone() != null) once.setInternalPhone(data.getInternalPhone());
+        if (data.getName() != null)
+            once.setName(data.getName());
+        if (data.getEmail() != null)
+            once.setEmail(data.getEmail());
+        if (data.getPhone() != null)
+            once.setPhone(data.getPhone());
+        if (data.getInternalPhone() != null)
+            once.setInternalPhone(data.getInternalPhone());
 
         if (data.getDepartment() != null) {
             departments.findByName(data.getDepartment()).ifPresent(once::setDepartment);
