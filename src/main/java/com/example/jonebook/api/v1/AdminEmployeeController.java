@@ -1,6 +1,7 @@
 package com.example.jonebook.api.v1;
 
 import com.example.jonebook.entities.Employee;
+import com.example.jonebook.entities.WorkPost;
 import com.example.jonebook.repositories.DepartmentRepository;
 import com.example.jonebook.repositories.EmployeeRepository;
 import com.example.jonebook.repositories.WorkPostRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -53,6 +55,7 @@ public class AdminEmployeeController {
         }
 
         if (data.getPosts() != null) {
+            once.setPosts(new HashSet<WorkPost>());
             for (String post : data.getPosts()) {
                 workPosts.findByName(post).ifPresent(workPost -> once.getPosts().add(workPost));
             }
