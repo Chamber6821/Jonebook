@@ -23,11 +23,15 @@ function acronym(str) {
 }
 
 function compressName(name, maxLen = 10) {
-    if (name === null) return null
-    if (name.length <= maxLen) return name
-    const acr = acronym(name)
-    if (acr.length > 1) return acr
-    return name
+    try {
+        if (name === null) return null
+        if (name.length <= maxLen) return name
+        const acr = acronym(name)
+        if (acr.length > 1) return acr
+        return name
+    } catch (e) {
+        return name
+    }
 }
 
 function fillSelect(container, elements) {
