@@ -45,3 +45,9 @@ bootWar {
 test {
     useJUnitPlatform()
 }
+
+task up(dependsOn: bootWar) {
+    doLast {
+        exec { commandLine 'docker', 'compose', 'up', '--build', '-d' }
+    }
+}
