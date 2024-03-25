@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface DepartmentRepository extends JpaRepository<Department, Long>, JpaSpecificationExecutor<Department> {
     Optional<Department> findByName(String name);
 
-    @Query("SELECT d FROM Department d WHERE name LIKE ':prefix%' ORDER BY name")
+    @Query("SELECT d FROM Department d WHERE name LIKE concat(:prefix, '%') ORDER BY name")
     List<Department> findByNameStartingWithOrderByName(@Param("prefix") String namePrefix);
 }
