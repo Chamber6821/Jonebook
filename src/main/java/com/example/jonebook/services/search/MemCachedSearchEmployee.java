@@ -2,7 +2,6 @@ package com.example.jonebook.services.search;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Pair;
@@ -24,6 +23,8 @@ public class MemCachedSearchEmployee implements SearchEmployee {
 
     @Override
     public Page<Employee> search(@NonNull EmployeeCriteria criteria, @NonNull Pageable pageable) {
+        if (cache.size() > 10000)
+            cache.keySet().stream().findFirst().ifPresent(x -> cache.remove(x));
         var key = Pair.of(criteria, pageable);
         if (!cache.containsKey(key))
             cache.put(key, origin.search(criteria, pageable));
