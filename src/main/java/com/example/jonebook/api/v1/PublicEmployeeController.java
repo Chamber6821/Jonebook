@@ -27,7 +27,7 @@ public class PublicEmployeeController {
 
     @GetMapping
     public List<PublicEmployee> getAll(@RequestParam(defaultValue = "100") int pageSize,
-                                       @RequestParam(defaultValue = "1") int page) {
+            @RequestParam(defaultValue = "0") int page) {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, Employee.Fields.id);
         return employees.findAll(pageable).stream()
                 .map(PublicEmployee::new)
