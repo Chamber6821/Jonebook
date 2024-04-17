@@ -12,4 +12,12 @@ public class WorkPostTest {
     assertEquals(obj.getName(), null);
     assertEquals(obj.getEmployees(), null);
   }
+
+  @Test
+  void setAll() {
+    var obj = new WorkPost();
+    obj.setId(null);
+    obj.setName(null);
+    obj.setEmployees(null);
+  }
 }

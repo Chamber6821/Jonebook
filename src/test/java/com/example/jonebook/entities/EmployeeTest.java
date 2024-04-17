@@ -16,4 +16,16 @@ public class EmployeeTest {
     assertEquals(obj.getDepartment(), null);
     assertEquals(obj.getPosts(), null);
   }
+
+  @Test
+  void setAll() {
+    var obj = new Employee();
+    obj.setId(null);
+    obj.setName(null);
+    obj.setEmail(null);
+    obj.setPhone(null);
+    obj.setInternalPhone(null);
+    obj.setDepartment(null);
+    obj.setPosts(null);
+  }
 }

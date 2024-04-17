@@ -11,4 +11,11 @@ public class DepartmentTest {
     assertEquals(obj.getId(), null);
     assertEquals(obj.getName(), null);
   }
+
+  @Test
+  void setAll() {
+    var obj = new Department();
+    obj.setId(null);
+    obj.setName(null);
+  }
 }
