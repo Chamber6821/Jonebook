@@ -1,19 +1,19 @@
-version: "3"
-
 services:
   postgres:
     image: "postgres:15"
     container_name: "jonebook-postgres"
     environment:
-      - "POSTGRES_DB=jonebook"
-      - "POSTGRES_USER=Jonebook"
-      - "POSTGRES_PASSWORD=demo-project"
-    ports:
-      - "5433:5432"
+      POSTGRES_DB: jonebook
+      POSTGRES_USER: Jonebook
+      POSTGRES_PASSWORD: demo-project
 
   myapp:
     build: "."
     container_name: "jonebook"
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/jonebook
+      DB_USER: Jonebook
+      DB_PASSWORD: demo-project
     ports:
       - "80:8080"
 
