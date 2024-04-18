@@ -8,11 +8,11 @@ import com.example.jonebook.repositories.WorkPostRepository;
 import com.example.jonebook.services.dto.ExtendedEmployee;
 import org.junit.jupiter.api.Test;
 
-public class EmployeeBuilderServiceTest {
+class EmployeeBuilderServiceTest {
   @Test
   void x() {
     var obj = new EmployeeBuilderService(mock(DepartmentRepository.class),
-        mock(WorkPostRepository.class));
+                                         mock(WorkPostRepository.class));
     assertNotEquals(obj.createFromData(new ExtendedEmployee()), null);
   }
 }

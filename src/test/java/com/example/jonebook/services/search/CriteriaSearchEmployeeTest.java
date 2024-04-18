@@ -19,23 +19,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-public class CriteriaSearchEmployeeTest {
+class CriteriaSearchEmployeeTest {
   abstract class PartialEmployeeRepository implements EmployeeRepository {
     @Override
     public Page<Employee> findAll(Specification<Employee> spec,
-        Pageable pageable) {
+                                  Pageable pageable) {
       var root = mock(Root.class);
       when(root.get(any(String.class))).thenReturn(mock(Path.class));
       when(root.join(any(String.class))).thenReturn(mock(Join.class));
       spec.toPredicate(root, mock(CriteriaQuery.class),
-          mock(CriteriaBuilder.class));
+                       mock(CriteriaBuilder.class));
       return Page.<Employee>empty();
     }
   }
 
   @Test
   void searchAll() {
-    var employees = mock(PartialEmployeeRepository.class, Answers.CALLS_REAL_METHODS);
+    var employees =
+        mock(PartialEmployeeRepository.class, Answers.CALLS_REAL_METHODS);
     new CriteriaSearchEmployee(employees).search(
         EmployeeCriteria.builder()
             .nameFragment("Petr")
@@ -43,14 +44,10 @@ public class CriteriaSearchEmployeeTest {
             .phonePrefix("123")
             .internalPhonePrefix("321")
             .departmentVariants(new HashSet<>() {
-              {
-                add("School");
-              }
+              { add("School"); }
             })
             .postsFragment(new HashSet<>() {
-              {
-                add("Teacher");
-              }
+              { add("Teacher"); }
             })
             .build(),
         null);

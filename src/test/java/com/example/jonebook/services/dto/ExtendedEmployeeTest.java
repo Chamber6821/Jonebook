@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-public class ExtendedEmployeeTest {
+class ExtendedEmployeeTest {
   @Test
   void createWithoutArgs() {
     new ExtendedEmployee();

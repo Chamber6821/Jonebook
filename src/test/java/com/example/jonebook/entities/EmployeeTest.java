@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class EmployeeTest {
+class EmployeeTest {
   @Test
   void getAll() {
     var obj = new Employee();
