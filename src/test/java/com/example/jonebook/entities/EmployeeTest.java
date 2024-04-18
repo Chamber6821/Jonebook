@@ -8,13 +8,13 @@ class EmployeeTest {
   @Test
   void getAll() {
     var obj = new Employee();
-    assertEquals(obj.getId(), null);
-    assertEquals(obj.getName(), null);
-    assertEquals(obj.getEmail(), null);
-    assertEquals(obj.getPhone(), null);
-    assertEquals(obj.getInternalPhone(), null);
-    assertEquals(obj.getDepartment(), null);
-    assertEquals(obj.getPosts(), null);
+    assertEquals(null, obj.getId());
+    assertEquals(null, obj.getName());
+    assertEquals(null, obj.getEmail());
+    assertEquals(null, obj.getPhone());
+    assertEquals(null, obj.getInternalPhone());
+    assertEquals(null, obj.getDepartment());
+    assertEquals(null, obj.getPosts());
   }
 
   @Test
@@ -27,5 +27,12 @@ class EmployeeTest {
     obj.setInternalPhone(null);
     obj.setDepartment(null);
     obj.setPosts(null);
+    assertEquals(null, obj.getId());
+    assertEquals(null, obj.getName());
+    assertEquals(null, obj.getEmail());
+    assertEquals(null, obj.getPhone());
+    assertEquals(null, obj.getInternalPhone());
+    assertEquals(null, obj.getDepartment());
+    assertEquals(null, obj.getPosts());
   }
 }

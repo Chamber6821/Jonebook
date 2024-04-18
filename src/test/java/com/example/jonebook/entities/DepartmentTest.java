@@ -8,8 +8,8 @@ class DepartmentTest {
   @Test
   void getAll() {
     var obj = new Department();
-    assertEquals(obj.getId(), null);
-    assertEquals(obj.getName(), null);
+    assertEquals(null, obj.getId());
+    assertEquals(null, obj.getName());
   }
 
   @Test
@@ -17,5 +17,7 @@ class DepartmentTest {
     var obj = new Department();
     obj.setId(null);
     obj.setName(null);
+    assertEquals(null, obj.getId());
+    assertEquals(null, obj.getName());
   }
 }
