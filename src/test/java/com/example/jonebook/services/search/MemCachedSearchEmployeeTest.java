@@ -13,7 +13,17 @@ public class MemCachedSearchEmployeeTest {
   void shouldReturnTheSameValueFromOrigin() {
     var pageable = PageRequest.of(0, 20);
     assertEquals(new MemCachedSearchEmployee((x, p) -> Page.<Employee>empty(p))
-                     .search(EmployeeCriteria.builder().build(), pageable),
-                 Page.<Employee>empty(pageable));
+        .search(EmployeeCriteria.builder().build(), pageable),
+        Page.<Employee>empty(pageable));
+  }
+
+  @Test
+  void overflowCache() {
+    var service = new MemCachedSearchEmployee((x, p) -> Page.<Employee>empty(p));
+    for (int i = 0; i < 100000; i++) {
+      var pageable = PageRequest.of(i, 20);
+      assertEquals(service.search(EmployeeCriteria.builder().build(), pageable),
+          Page.<Employee>empty(pageable));
+    }
   }
 }
