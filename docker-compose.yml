@@ -6,7 +6,8 @@ services:
       POSTGRES_DB: jonebook
       POSTGRES_USER: Jonebook
       POSTGRES_PASSWORD: demo-project
-
+    volumes:
+      - ./.database:/var/lib/postgresql
   myapp:
     build: "."
     container_name: "jonebook"
