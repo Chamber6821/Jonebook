@@ -9,8 +9,12 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -20,7 +24,10 @@ public class CriteriaSearchEmployeeTest {
     @Override
     public Page<Employee> findAll(Specification<Employee> spec,
         Pageable pageable) {
-      spec.toPredicate(mock(Root.class), mock(CriteriaQuery.class),
+      var root = mock(Root.class);
+      when(root.get(any(String.class))).thenReturn(mock(Path.class));
+      when(root.join(any(String.class))).thenReturn(mock(Join.class));
+      spec.toPredicate(root, mock(CriteriaQuery.class),
           mock(CriteriaBuilder.class));
       return Page.<Employee>empty();
     }
@@ -28,7 +35,7 @@ public class CriteriaSearchEmployeeTest {
 
   @Test
   void searchAll() {
-    var employees = mock(PartialEmployeeRepository.class);
+    var employees = mock(PartialEmployeeRepository.class, Answers.CALLS_REAL_METHODS);
     new CriteriaSearchEmployee(employees).search(
         EmployeeCriteria.builder()
             .nameFragment("Petr")
