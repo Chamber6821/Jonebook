@@ -13,6 +13,6 @@ class EmployeeBuilderServiceTest {
   void x() {
     var obj = new EmployeeBuilderService(mock(DepartmentRepository.class),
                                          mock(WorkPostRepository.class));
-    assertNotEquals(obj.createFromData(new ExtendedEmployee()), null);
+    assertNotEquals(null, obj.createFromData(new ExtendedEmployee()));
   }
 }

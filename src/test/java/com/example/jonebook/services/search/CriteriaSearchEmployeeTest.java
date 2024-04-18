@@ -1,5 +1,7 @@
 package com.example.jonebook.services.search;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.*;
 
 import com.example.jonebook.entities.Employee;
@@ -37,19 +39,19 @@ class CriteriaSearchEmployeeTest {
   void searchAll() {
     var employees =
         mock(PartialEmployeeRepository.class, Answers.CALLS_REAL_METHODS);
-    new CriteriaSearchEmployee(employees).search(
-        EmployeeCriteria.builder()
-            .nameFragment("Petr")
-            .emailFragment("@")
-            .phonePrefix("123")
-            .internalPhonePrefix("321")
-            .departmentVariants(new HashSet<>() {
-              { add("School"); }
-            })
-            .postsFragment(new HashSet<>() {
-              { add("Teacher"); }
-            })
-            .build(),
-        null);
+    assertNotEquals(null, new CriteriaSearchEmployee(employees).search(
+                              EmployeeCriteria.builder()
+                                  .nameFragment("Petr")
+                                  .emailFragment("@")
+                                  .phonePrefix("123")
+                                  .internalPhonePrefix("321")
+                                  .departmentVariants(new HashSet<>() {
+                                    { add("School"); }
+                                  })
+                                  .postsFragment(new HashSet<>() {
+                                    { add("Teacher"); }
+                                  })
+                                  .build(),
+                              null));
   }
 }

@@ -1,6 +1,7 @@
 package com.example.jonebook.services.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.example.jonebook.entities.Employee;
 import java.util.List;
@@ -10,12 +11,14 @@ import org.junit.jupiter.api.Test;
 class ExtendedEmployeeTest {
   @Test
   void createWithoutArgs() {
-    new ExtendedEmployee();
+    var obj = new ExtendedEmployee();
+    assertNotEquals(null, obj);
   }
 
   @Test
   void createFromEmployee() {
-    new ExtendedEmployee(Employee.builder().posts(Set.of()).build());
+    var obj = new ExtendedEmployee(Employee.builder().posts(Set.of()).build());
+    assertNotEquals(null, obj);
   }
 
   @Test
