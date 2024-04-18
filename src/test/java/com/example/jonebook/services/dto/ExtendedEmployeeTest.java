@@ -1,5 +1,7 @@
 package com.example.jonebook.services.dto;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.example.jonebook.entities.Employee;
 import java.util.List;
 import java.util.Set;
@@ -26,5 +28,17 @@ public class ExtendedEmployeeTest {
     obj.setInternalPhone(null);
     obj.setDepartment(null);
     obj.setPosts(null);
+  }
+
+  @Test
+  void getAll() {
+    var obj = new ExtendedEmployee();
+    assertEquals(obj.getId(), null);
+    assertEquals(obj.getName(), null);
+    assertEquals(obj.getEmail(), null);
+    assertEquals(obj.getPhone(), null);
+    assertEquals(obj.getInternalPhone(), null);
+    assertEquals(obj.getDepartment(), null);
+    assertEquals(obj.getPosts(), null);
   }
 }
