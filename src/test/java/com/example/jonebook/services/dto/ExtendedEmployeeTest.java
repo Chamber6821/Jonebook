@@ -15,4 +15,16 @@ public class ExtendedEmployeeTest {
   void createFromEmployee() {
     new ExtendedEmployee(Employee.builder().posts(Set.of()).build());
   }
+
+  @Test
+  void setAll() {
+    var obj = new ExtendedEmployee();
+    obj.setId(null);
+    obj.setName(null);
+    obj.setEmail(null);
+    obj.setPhone(null);
+    obj.setInternalPhone(null);
+    obj.setDepartment(null);
+    obj.setPosts(null);
+  }
 }
