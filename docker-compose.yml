@@ -10,6 +10,7 @@ services:
       - ./.database:/var/lib/postgresql
   myapp:
     build: "."
+    image: chamber6821/jonebook
     container_name: "jonebook"
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/jonebook
