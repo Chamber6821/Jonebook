@@ -50,7 +50,6 @@
 
 
         <module name="AvoidNestedBlocks"/>
-        <module name="LeftCurly"/>
         <module name="RightCurly"/>
 
         <module name="EmptyStatement"/>
